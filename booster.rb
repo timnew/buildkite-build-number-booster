@@ -35,7 +35,7 @@ class Booster
     request['cache-control'] = 'no-cache'
     request.body = {
       commit: 'commit-do-not-exist',
-      branch: 'master',
+      branch: 'boost-build',
       message: 'Boost Build Number',
       author: {
         name: user,
@@ -62,7 +62,6 @@ class Booster
   def run
     while check_build_number
       boost
-      # sleep 0.1 # sleep 100ms
     end
   end
 end
