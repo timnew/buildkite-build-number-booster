@@ -37,3 +37,15 @@ Here is an example: If the home page of the project is https://buildkite.com/you
 ```
 $ export ORG=your-company PIPELINE=your-project-name
 ```
+
+## The script is too slow
+
+To avoid the script being considered as DoS attack to the Buildkite, the script is working on single thread, it fires new request after old one has returned. And it reduce the chance that we over build the target.
+
+And the script roughly fire 1 req/s, so you can have it run in the background, bumping 1000 builds takes just 17 min.
+
+To make it faster, you can turn on `Build Skipping` from the pipeline settings, so CI will terminate the previous build if a new one is kicked off on the same branch.
+
+### Multi-threading
+
+The script really don't support multi-threading per reason explained above. If you really want to go parallel, you can kick off multiple processes easily. Just make sure they have the same environment variables settings. And you might expecte over built in this case.
